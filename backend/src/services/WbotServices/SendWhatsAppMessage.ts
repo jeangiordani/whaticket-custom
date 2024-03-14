@@ -14,6 +14,12 @@ interface Request {
   quotedMsg?: Message;
 }
 
+interface RequestCustom {
+  from: string;
+  to: string;
+  body: string;
+}
+
 const SendWhatsAppMessage = async ({
   body,
   ticket,
@@ -24,6 +30,9 @@ const SendWhatsAppMessage = async ({
     await GetWbotMessage(ticket, quotedMsg.id);
     quotedMsgSerializedId = SerializeWbotMsgId(ticket, quotedMsg);
   }
+
+  // console.log("ticket: ", ticket);
+  
 
   const wbot = await GetTicketWbot(ticket);
 

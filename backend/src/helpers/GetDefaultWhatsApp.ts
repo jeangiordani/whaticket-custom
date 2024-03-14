@@ -16,6 +16,8 @@ const GetDefaultWhatsApp = async (
     where: { isDefault: true }
   });
 
+  console.log("defaultWhatsapp: ", defaultWhatsapp); 
+
   if (!defaultWhatsapp) {
     throw new AppError("ERR_NO_DEF_WAPP_FOUND");
   }

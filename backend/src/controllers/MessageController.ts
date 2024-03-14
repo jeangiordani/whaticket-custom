@@ -9,6 +9,8 @@ import ShowTicketService from "../services/TicketServices/ShowTicketService";
 import DeleteWhatsAppMessage from "../services/WbotServices/DeleteWhatsAppMessage";
 import SendWhatsAppMedia from "../services/WbotServices/SendWhatsAppMedia";
 import SendWhatsAppMessage from "../services/WbotServices/SendWhatsAppMessage";
+import SendWhatsAppMessageCustom from "../services/WbotServices/SendWhatsAppMessageCustom";
+
 
 type IndexQuery = {
   pageNumber: string;
@@ -72,4 +74,27 @@ export const remove = async (
   });
 
   return res.send();
+};
+
+type MessagePayload = {
+  from: string;
+  to: string;
+  body: string;
+};
+
+// from: string = deve ser o nome da conexão que foi conectado no whaticket
+// to: string = deve ser o número do telefone com o código do país
+// body: string = mensagem que será enviada
+export const sendMessageCustom = async (req: Request, res: Response): Promise<Response> => {
+    const { from, to, body }: MessagePayload = req.body;
+
+    const messageSent = await SendWhatsAppMessageCustom({from, to, body});
+    const response = {
+        message: "Mensagem enviada com sucesso",
+        from,
+        to,
+        body
+    }
+
+    return res.send(response);
 };
