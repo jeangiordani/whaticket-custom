@@ -18,10 +18,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://192.168.10.90:3001',
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
+
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(Sentry.Handlers.requestHandler());

@@ -2,5 +2,5 @@ module.exports = {
   singleQuote: false,
   trailingComma: "none",
   arrowParens: "avoid",
-  tabWidth: 4
+  tabWidth: "4"
 };
