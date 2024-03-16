@@ -5,7 +5,7 @@ RUN npm install
 COPY .env* ./
 COPY src/ ./src/
 COPY public/ ./public/
-RUN npm run build
+# RUN npm run build
 
 # FROM nginx:alpine
 # RUN apk add --no-cache jq openssl
