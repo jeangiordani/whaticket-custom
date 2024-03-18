@@ -83,18 +83,29 @@ type MessagePayload = {
 };
 
 // from: string = deve ser o nome da conexão que foi conectado no whaticket
-// to: string = deve ser o número do telefone com o código do país
+// to: string = deve ser o número do telefone e deve conter 55, DDD e número tudo junto sem o 9, ex: 555591356847
 // body: string = mensagem que será enviada
 export const sendMessageCustom = async (req: Request, res: Response): Promise<Response> => {
-    const { from, to, body }: MessagePayload = req.body;
+  const { from, to, body }: MessagePayload = req.body;
 
-    const messageSent = await SendWhatsAppMessageCustom({from, to, body});
+  try {
+    const messageSent = await SendWhatsAppMessageCustom({ from, to, body });
     const response = {
-        message: "Mensagem enviada com sucesso",
-        from,
-        to,
-        body
-    }
+      from,
+      to,
+      body
+    };
 
-    return res.send(response);
+    return res.send({
+      message: "Mensagem enviada com sucesso",
+      data: {
+        response
+      }
+    });
+  } catch (err) {
+    return res.status(500).send({
+      message: "Ocorreu um erro ao enviar a mensagem",
+      error: err
+    });
+  }
 };

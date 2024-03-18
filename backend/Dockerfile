@@ -1,4 +1,4 @@
-FROM node:14 as build-deps
+FROM node:16.20.2 as build-deps
 
 RUN apt-get update && apt-get install -y wget
 
@@ -23,6 +23,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 WORKDIR /usr/src/app
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
@@ -31,6 +32,7 @@ RUN npm run build
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV CHROME_BIN=google-chrome-stable
+ENV CHROME_ARGS='--no-sandbox --disable-setuid-sandbox'
 
 EXPOSE 3000
 
